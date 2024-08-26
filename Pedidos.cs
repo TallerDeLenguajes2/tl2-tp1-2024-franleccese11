@@ -1,9 +1,12 @@
+
 public class Pedido
 {
     private int nro;
     private string obs;
     Cliente cliente;
-    char estado;
+    private estadoPedido estado;
+
+    public estadoPedido Estado { get => estado; set => estado = value; }
 
     public void VerDireccionCliente()
     {
