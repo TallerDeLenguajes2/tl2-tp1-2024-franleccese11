@@ -4,6 +4,8 @@ public class Cadeteria
     private int telefono;
     public List<Cadete> listaCadetes;
 
+    public string Nombre { get => nombre;}
+
     public Cadeteria(string nombre,int telefono,List<Cadete>listaCadetes)
     {
         this.nombre = nombre;
