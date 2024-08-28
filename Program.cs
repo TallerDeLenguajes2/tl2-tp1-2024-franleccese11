@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Design;
+using System.Formats.Tar;
 
 List<Cadete> listaCadetes = cargarCadetes("cadetes1.csv");
 Cadeteria cadeteria = cargarCadeteria(listaCadetes,"cadeteria1.csv");
@@ -50,9 +51,10 @@ do
 
             case 1:
                 Console.WriteLine("***interfaz de asignacion de pedidos sin cadete***");
-                IEnumerable<Pedido> listaPedidosSinCadete = from ped in listaPedidosTotal
+                IEnumerable<Pedido> PedidosSinCadete = from ped in listaPedidosTotal
                                         where ped.Estado == estadoPedido.sinCadete
                                         select ped;
+                List<Pedido>listaPedidosSinCadete=PedidosSinCadete.ToList();
                 foreach (Pedido pedidoSinCadete in listaPedidosSinCadete)
                 {
                     Console.WriteLine("numero de pedido:"+pedidoSinCadete.Nro);
@@ -97,11 +99,29 @@ do
                                         Console.WriteLine("ERROR! ingrese un id valido");
                                     }
                                 } while (!int.TryParse(cadId,out id));
-                                                    
+                                asignarPedido(id,nro,listaPedidosSinCadete,listaCadetes);            
+                            }else
+                            {
+                                Console.WriteLine("ingrese el id del cadete al que asignara los pedidos:");
+                                foreach (Cadete cad in listaCadetes)
+                                {
+                                    Console.WriteLine("-)id:"+cad.Id+" Nombre:"+cad.Nombre);
+                                }
+                                int id=0;
+                                string cadId="";
+                                do
+                                {
+                                    Console.WriteLine("id:");
+                                    cadId = Console.ReadLine();
+                                    if (!int.TryParse(cadId,out id) || id<0 || id>= listaCadetes.Count)
+                                    {
+                                        Console.WriteLine("ERROR! ingrese un id valido");
+                                    }
+                                } while (!int.TryParse(cadId,out id));
+                                asignarTodosLosPedidos(id,listaPedidosSinCadete,listaCadetes);
                             }
                         }
-                    } while (!int.TryParse(cadInterfaz,out interfaz));
-                    
+                    } while (!int.TryParse(cadInterfaz,out interfaz));           
                 } while (interfaz != 0);
             break;
             
@@ -141,4 +161,61 @@ static Cadeteria cargarCadeteria(List<Cadete> listaCadetes,string nombreArchivo2
         cadeteria = new Cadeteria(valores[0],int.Parse(valores[1]),listaCadetes);
     }
     return cadeteria;
+}
+
+static void asignarPedido(int id,int nro,List<Pedido>listaPedidosSinCadete,List<Cadete>listaCadetes)
+{
+    Cadete cadeteAux=null;
+    foreach (Cadete cad in listaCadetes)
+    {
+        if (id==cad.Id)
+        {
+            cadeteAux=cad;
+            break;
+        }
+    }
+    if (cadeteAux!=null)
+    {
+        Pedido pedidoAux=null;
+        foreach (Pedido ped in listaPedidosSinCadete)
+        {
+            if (nro==ped.Nro)
+            {
+                pedidoAux=ped;
+                break;
+            }
+        }
+        if (pedidoAux!=null)
+        {
+            pedidoAux.Estado=estadoPedido.Pendiente;
+            cadeteAux.listaPedidos.Add(pedidoAux);
+            listaPedidosSinCadete.Remove(pedidoAux);
+            Console.WriteLine("pedido asignado al cadete con exito!");
+        }
+    }
+
+}
+
+
+static void asignarTodosLosPedidos(int id,List<Pedido>listaPedidosSinCadete,List<Cadete>listaCadetes)
+{
+    Cadete cadeteAux=null;
+    foreach (Cadete cad in listaCadetes)
+    {
+        if (id==cad.Id)
+        {
+            cadeteAux=cad;
+            break;
+        }
+    }
+    if (cadeteAux!=null)
+    {
+        foreach (Pedido ped in listaPedidosSinCadete)
+        {
+            ped.Estado=estadoPedido.Pendiente;
+            cadeteAux.listaPedidos.Add(ped);
+            listaPedidosSinCadete.Remove(ped);
+        }
+        Console.WriteLine("pedidos transferidos con exito al cadete!");
+    }
 }
