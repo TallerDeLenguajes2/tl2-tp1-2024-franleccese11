@@ -4,5 +4,5 @@ Considero que la relacion entre cadete y pedidos es una relacion por agregacion 
 
 ### ¿Qué métodos considera que debería tener la clase Cadetería y la clase Cadete?
 
-un metodo llamado TotalAPagar() para calcular cuanto hay que pagarle a todos los cadetes en un jornal, otro metodo que llamado NuevoPedido() para cargar un pedido en el sistema y asignarlo a un cadete
+un metodo llamado TotalAPagar() para calcular cuanto hay que pagarle a todos los cadetes en un jornal, otro metodo que llamado NuevoPedido() para cargar un pedido en el sistema y asignarlo a un cadete. tambien un metodo llamado CantidadEnviostotal() que registre el numero de pedidos en total que completaron todos los cadetes en una jornada
 

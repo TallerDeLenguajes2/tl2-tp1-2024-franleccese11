@@ -15,6 +15,7 @@ public class Pedido
     }
 
     public estadoPedido Estado { get => estado; set => estado = value; }
+    public int Nro { get => nro;}
 
     public void VerDireccionCliente()
     {

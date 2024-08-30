@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tl2-tp1-2024-franleccese11", "tl2-tp1-2024-franleccese11.csproj", "{90E45477-C9A3-4AB7-8313-239E2562500D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tl2-tp1-2024-franleccese11", "tl2-tp1-2024-franleccese11.csproj", "{29E3FA9C-78BF-453E-BF82-0695019A994F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90E45477-C9A3-4AB7-8313-239E2562500D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90E45477-C9A3-4AB7-8313-239E2562500D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90E45477-C9A3-4AB7-8313-239E2562500D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90E45477-C9A3-4AB7-8313-239E2562500D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29E3FA9C-78BF-453E-BF82-0695019A994F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29E3FA9C-78BF-453E-BF82-0695019A994F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29E3FA9C-78BF-453E-BF82-0695019A994F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29E3FA9C-78BF-453E-BF82-0695019A994F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

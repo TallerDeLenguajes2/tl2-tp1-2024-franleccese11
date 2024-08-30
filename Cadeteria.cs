@@ -22,4 +22,20 @@ public class Cadeteria
         }
         return total;
     }
+
+    public int CantidadEnviostotal()
+    {
+        int cantEnvios=0;
+        foreach (Cadete cadete in listaCadetes)
+        {
+            foreach (Pedido pedido in cadete.listaPedidos)
+            {
+                if (pedido.Estado==estadoPedido.completado)
+                {
+                    cantEnvios++;
+                }
+            }
+        }
+        return(cantEnvios);
+    }
 }
