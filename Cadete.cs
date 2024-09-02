@@ -4,7 +4,7 @@ public class Cadete
     private string nombre;
     private string direccion;
     private string telefono;
-    public List<Pedido> listaPedidos;
+    
 
     public int Id { get => id;}
     public string Nombre { get => nombre;}
@@ -15,10 +15,9 @@ public class Cadete
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono=telefono;
-        listaPedidos = new List<Pedido>();
     }
 
-    public int ContarPedidosRealizados()
+   /* public int ContarPedidosRealizados()
     {
         int entregados=0;
         foreach (Pedido pedido in listaPedidos)
@@ -36,5 +35,5 @@ public class Cadete
         int cantidadJornal = ContarPedidosRealizados();
         return(500*cantidadJornal);
     }
-    
+*/    
 }

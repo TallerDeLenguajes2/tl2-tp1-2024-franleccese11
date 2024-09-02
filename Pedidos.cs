@@ -6,6 +6,8 @@ public class Pedido
     Cliente cliente;
     private estadoPedido estado;
 
+    Cadete cadete;
+
     public Pedido(int nro,string obs,Cliente cliente)
     {
         this.nro=nro;
@@ -16,6 +18,7 @@ public class Pedido
 
     public estadoPedido Estado { get => estado; set => estado = value; }
     public int Nro { get => nro;}
+    public Cadete Cadete { get => cadete; set => cadete = value; }
 
     public void VerDireccionCliente()
     {
