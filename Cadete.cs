@@ -1,20 +1,29 @@
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
+
 public class Cadete
 {
-    private int id;
-    private string nombre;
-    private string direccion;
-    private string telefono;
     
+    [JsonPropertyName("id")]
+    public int Id { get ; set; }
+    
+    [JsonPropertyName("nombre")]
+    public string Nombre { get; set; }
 
-    public int Id { get => id;}
-    public string Nombre { get => nombre;}
+    [JsonPropertyName("direccion")]
+    public string Direccion { get; set; }
+
+    [JsonPropertyName("telefono")]
+    public string Telefono { get; set; }
 
     public Cadete(int id,string nombre,string direccion,string telefono)
     {
-        this.id = id;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono=telefono;
+        this.Id = id;
+        this.Nombre = nombre;
+        this.Direccion = direccion;
+        this.Telefono=telefono;
     }
 
    /* public int ContarPedidosRealizados()

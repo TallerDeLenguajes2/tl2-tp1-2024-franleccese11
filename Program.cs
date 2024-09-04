@@ -1,8 +1,46 @@
 ﻿using System.ComponentModel.Design;
 using System.Formats.Tar;
 
-List<Cadete> listaCadetes = cargarCadetes("cadetes1.csv");
-Cadeteria cadeteria = cargarCadeteria(listaCadetes,"cadeteria1.csv");
+
+int opcion;
+string cadOpcion;
+
+Console.WriteLine("Seleccione el tipo de acceso a datos (1: CSV, 2: JSON):");
+do
+{
+    cadOpcion = Console.ReadLine();
+    if (!int.TryParse(cadOpcion,out opcion)||opcion<1||opcion>2)
+    {
+        Console.WriteLine("error,ingrese un numero valido!");
+    }
+} while (!int.TryParse(cadOpcion,out opcion)||opcion<1||opcion>2);
+
+AccesoADatos acceso;
+string nombreArchivo;
+string nombreArchivo2;
+
+if(opcion == 1)
+{
+    acceso = new ArchivoCsv();
+    nombreArchivo = "cadetes1.csv";
+    nombreArchivo2 ="cadeteria1.csv";
+}
+else if(opcion == 2)
+{
+    acceso = new ArchivoJson();
+    nombreArchivo = "cadetes1.json";
+    nombreArchivo2 = "cadeteria1.json";
+}
+else
+{
+    Console.WriteLine("Opción no válida.");
+    return;
+}
+
+    List<Cadete> listaCadetes = acceso.CargarCadetes(nombreArchivo);
+    Cadeteria cadeteria = acceso.CargarCadeteria(listaCadetes, nombreArchivo2);
+
+
 
 int menu=5;
 string cadMenu="";
@@ -209,37 +247,7 @@ Console.WriteLine("el total a pagar a todos los cadetes es: "+totalApagar);
 
 
 
-static List<Cadete> cargarCadetes(string nombreArchivo)
-{
-    List<Cadete> listaDeCadetes = new List<Cadete>();
-    using(StreamReader str = new StreamReader(nombreArchivo))
-    {
-        str.ReadLine();
-        string linea="";
-        while (!str.EndOfStream)
-        {
-            linea=str.ReadLine();
-            string []valores= linea.Split(',');
-            int id = int.Parse(valores[0]);
-            Cadete cadete = new Cadete(id,valores[1],valores[2],valores[3]);
-            listaDeCadetes.Add(cadete);
-        }
-    }
-    return listaDeCadetes;
-} 
 
-static Cadeteria cargarCadeteria(List<Cadete> listaCadetes,string nombreArchivo2)
-{
-    Cadeteria cadeteria;
-    using(StreamReader str = new StreamReader(nombreArchivo2))
-    {
-        str.ReadLine();
-        string linea=str.ReadLine();
-        string []valores= linea.Split(',');
-        cadeteria = new Cadeteria(valores[0],int.Parse(valores[1]),listaCadetes);
-    }
-    return cadeteria;
-}
 
 /*static void asignarPedido(int id,int nro,List<Pedido>cadeteria.listaPedidos,List<Cadete>listaCadetes)
 {
