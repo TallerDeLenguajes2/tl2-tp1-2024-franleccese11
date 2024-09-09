@@ -63,7 +63,7 @@ public class Cadeteria
     }
     */
 
-    public void AsignarPedido(int id,int nro)
+    public bool AsignarPedido(int id,int nro)
     {
         Cadete cadeteAux= listaCadetes.Find(cad=>cad.Id==id);
         Pedido pedidoAux= listaPedidos.Find(ped=>ped.Nro==nro);
@@ -71,46 +71,48 @@ public class Cadeteria
         {
             pedidoAux.Estado=estadoPedido.Pendiente;
             pedidoAux.Cadete = cadeteAux;
-            Console.WriteLine("pedido asignado al cadete con exito!");
+            return true;
+        }else
+        {
+            return false;
         }
     }
 
 
-    public void CambiarEstadoPedido(int nro,int seleccion)
+    public bool CambiarEstadoPedido(int nro,int seleccion)
     {
         Pedido pedidoAux = listaPedidos.Find(ped=>ped.Nro==nro);
-                if (seleccion==1)
+        if (pedidoAux!=null)
+        {
+            if (seleccion==1)
                 {
                     pedidoAux.Estado=estadoPedido.completado;
-                    Console.WriteLine("pedido cambiado de estado con exito!");
                 }else
                 {
                     listaPedidos.Remove(pedidoAux);
-                    Console.WriteLine("pedido cancelado con exito!");
                 }
+            return true;
+        }else
+        {
+            return false;
+        }            
     }
 
 
-    public void ReasignarPedido(int id1,int nro)
+    public bool ReasignarPedido(int id1,int nro)
     {
         Cadete cadeteAux= listaCadetes.Find(cad=>cad.Id==id1);
         Pedido pedidoAux= listaPedidos.Find(ped=>ped.Nro==nro);
+        
 
-        pedidoAux.Cadete = cadeteAux;
-       /* foreach (Cadete cadete in listaCadetes)
+        if (cadeteAux!=null && pedidoAux!=null)
         {
-            if (cadete.Id == id1)
-            {
-                foreach (Pedido pedido in listaPedidos)
-                {
-                    if (pedido.Nro == nro)
-                    {
-                        pedido.Cadete = cadete;
-                        break; 
-                    }
-                }         
-            }
-        }*/
+            pedidoAux.Cadete = cadeteAux;
+            return true;
+        }else
+        {
+            return false;
+        }
     }
 
     public bool ControlarPedidosSinCadete()

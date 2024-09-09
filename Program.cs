@@ -92,7 +92,6 @@ do
                 Console.WriteLine("--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*--*");
                 Console.WriteLine("***interfaz de asignacion de pedidos sin cadete***");
                 
-                
                 int interfaz=0;
                 string cadInterfaz="";
                 do
@@ -134,6 +133,7 @@ do
                                     Console.WriteLine("ERROR! ingrese un numero valido");
                                 }
                             } while (!int.TryParse(cadNro, out nroPedido)||!cadeteria.listaPedidos.Any(ped=>ped.Nro==nroPedido));
+
                             Console.WriteLine("ingrese el id del cadete al que asignara el pedido:");
                             foreach (Cadete cad in cadeteria.listaCadetes)
                             {
@@ -152,7 +152,13 @@ do
                                 }
                             } while (!int.TryParse(cadId,out id)||!cadeteria.listaCadetes.Any(cad=>cad.Id==id));
 
-                            cadeteria.AsignarPedido(id,nroPedido);
+                            if (cadeteria.AsignarPedido(id,nroPedido))
+                            {
+                                Console.WriteLine("pedido asignado al cadete con exito!");
+                            }else
+                            {
+                                Console.WriteLine("ocurrio un error al asignar el pedido al cadete, por favor revise los datos ingresados");
+                            }                            
                         }else
                         {
                             Console.WriteLine("--no hay ningun pedido que no tenga un cadete asignado!--");
@@ -191,7 +197,13 @@ do
                         Console.WriteLine("ingrese 2 para cancelar el pedido");
                         cadInterfaz2=Console.ReadLine();
                     } while (!int.TryParse(cadInterfaz2,out interfaz2)||interfaz2>2||interfaz2<1);
-                    cadeteria.CambiarEstadoPedido(nroPedido1,interfaz2);      
+                    if(cadeteria.CambiarEstadoPedido(nroPedido1,interfaz2))
+                    {
+                        Console.WriteLine("accion realizada con exito!");
+                    }else
+                    {
+                        Console.WriteLine("error!, por favor revise los datos ingresados");
+                    }      
             break;
 
             case 3:
@@ -233,7 +245,13 @@ do
                             Console.WriteLine("ERROR! ingrese un id valido");
                         }
                     } while (!int.TryParse(cadId2,out id2)|| !cadeteria.listaCadetes.Any(cad=>cad.Id==id2));
-                    cadeteria.ReasignarPedido(id2,nroPedido2);
+                    if(cadeteria.ReasignarPedido(id2,nroPedido2))
+                    {
+                        Console.WriteLine("pedido reasignado con exito!");
+                    }else
+                    {
+                        Console.WriteLine("error,por favor revise los datos ingresados!");
+                    }
                 }else
                 {
                     Console.WriteLine("--no hay ningun pedido disponible para reasignar de cadete--");
