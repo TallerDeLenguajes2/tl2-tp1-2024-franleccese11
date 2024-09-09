@@ -65,32 +65,13 @@ public class Cadeteria
 
     public void AsignarPedido(int id,int nro)
     {
-        Cadete cadeteAux=null;
-        foreach (Cadete cad in listaCadetes)
+        Cadete cadeteAux= listaCadetes.Find(cad=>cad.Id==id);
+        Pedido pedidoAux= listaPedidos.Find(ped=>ped.Nro==nro);
+        if (cadeteAux!=null && pedidoAux != null)
         {
-            if (id==cad.Id)
-            {
-                cadeteAux=cad;
-                break;
-            }
-        }
-        if (cadeteAux!=null)
-        {
-            Pedido pedidoAux=null;
-            foreach (Pedido pedido in listaPedidos)
-            {
-                if (nro==pedido.Nro)
-                {
-                    pedidoAux=pedido;
-                    break;
-                }
-            }
-            if (pedidoAux!=null)
-            {
-                pedidoAux.Estado=estadoPedido.Pendiente;
-                pedidoAux.Cadete = cadeteAux;
-                Console.WriteLine("pedido asignado al cadete con exito!");
-            }
+            pedidoAux.Estado=estadoPedido.Pendiente;
+            pedidoAux.Cadete = cadeteAux;
+            Console.WriteLine("pedido asignado al cadete con exito!");
         }
     }
 
@@ -110,9 +91,13 @@ public class Cadeteria
     }
 
 
-    public void reasignarPedido(int id1,int nro)
+    public void ReasignarPedido(int id1,int nro)
     {
-        foreach (Cadete cadete in listaCadetes)
+        Cadete cadeteAux= listaCadetes.Find(cad=>cad.Id==id1);
+        Pedido pedidoAux= listaPedidos.Find(ped=>ped.Nro==nro);
+
+        pedidoAux.Cadete = cadeteAux;
+       /* foreach (Cadete cadete in listaCadetes)
         {
             if (cadete.Id == id1)
             {
@@ -125,7 +110,7 @@ public class Cadeteria
                     }
                 }         
             }
-        }
+        }*/
     }
 
     public bool ControlarPedidosSinCadete()
