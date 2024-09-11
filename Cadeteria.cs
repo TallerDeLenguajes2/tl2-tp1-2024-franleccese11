@@ -2,10 +2,8 @@ public class Cadeteria
 {
     private string nombre;
     private int telefono;
-    public List<Cadete> listaCadetes;
-
-    public List<Pedido> listaPedidos;
-
+    private List<Cadete> listaCadetes;
+    private List<Pedido> listaPedidos;
     public string Nombre { get => nombre;}
 
     public Cadeteria(string nombre,int telefono,List<Cadete>listaCadetes)
@@ -16,12 +14,27 @@ public class Cadeteria
         listaPedidos = new List<Pedido>();
     }
 
+    public List <Cadete> ObtenerCadetes()
+    {
+        return listaCadetes;
+    }
+
+    public List<Pedido> ObtenerPedidos()
+    {
+        return listaPedidos;
+    }
+
+    public void AgregarPedido(Pedido pedido)
+    {
+        listaPedidos.Add(pedido);
+    }
+
     public int PedidosRealizadosJornal(int id)
     {
         int pedidosRealizados=0;
         foreach (Pedido pedido in listaPedidos)
         {
-            if(id==pedido.Cadete.Id && pedido.Estado==estadoPedido.completado)
+            if(id==pedido.IdCadete() && pedido.Estado==estadoPedido.completado)
             {
                 pedidosRealizados++;
             }
@@ -70,7 +83,7 @@ public class Cadeteria
         if (cadeteAux!=null && pedidoAux != null)
         {
             pedidoAux.Estado=estadoPedido.Pendiente;
-            pedidoAux.Cadete = cadeteAux;
+            pedidoAux.AsignarCadete(cadeteAux);
             return true;
         }else
         {
@@ -107,7 +120,7 @@ public class Cadeteria
 
         if (cadeteAux!=null && pedidoAux!=null)
         {
-            pedidoAux.Cadete = cadeteAux;
+            pedidoAux.AsignarCadete(cadeteAux);
             return true;
         }else
         {

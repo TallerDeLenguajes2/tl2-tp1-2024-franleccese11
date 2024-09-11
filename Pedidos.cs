@@ -6,7 +6,7 @@ public class Pedido
     Cliente cliente;
     private estadoPedido estado;
 
-    Cadete cadete;
+    private Cadete cadete;
 
     public Pedido(int nro,string obs,Cliente cliente)
     {
@@ -18,16 +18,24 @@ public class Pedido
 
     public estadoPedido Estado { get => estado; set => estado = value; }
     public int Nro { get => nro;}
-    public Cadete Cadete { get => cadete; set => cadete = value; }
 
-    public void VerDireccionCliente()
+    public void AsignarCadete(Cadete cadete)
     {
-        Console.WriteLine("La direccion del cliente es " + cliente.Direccion);
+        this.cadete = cadete;
     }
 
-    public void VerDatosCliente()
+    public int IdCadete()
     {
-        Console.WriteLine("Nombre del cliente:"+cliente.Nombre);
-        Console.WriteLine("Telefono:"+cliente.Telefono);
+        return cadete.Id;
+    }
+
+    public string VerDireccionCliente()
+    {
+        return cliente.Direccion;
+    }
+
+    public string VerDatosCliente()
+    {
+        return cliente.Nombre;
     }
 }

@@ -83,7 +83,7 @@ do
                 Console.WriteLine("observacion del pedido:");
                 string obs=Console.ReadLine();
                 Pedido pedido = new(nro,obs,cliente);
-                cadeteria.listaPedidos.Add(pedido);
+                cadeteria.AgregarPedido(pedido);
                 Console.WriteLine("pedido ingresado con exito!");
                     
             break;
@@ -110,7 +110,7 @@ do
                     if (interfaz==1)
                     {
                         Console.WriteLine("----------------------");
-                        foreach (Pedido ped in cadeteria.listaPedidos)
+                        foreach (Pedido ped in cadeteria.ObtenerPedidos())
                         {
                             if (ped.Estado==estadoPedido.sinCadete)
                             {
@@ -128,14 +128,14 @@ do
                             {
                                 Console.WriteLine("ingrese el numero del pedido:");
                                 cadNro = Console.ReadLine();
-                                if (!int.TryParse(cadNro, out nroPedido)||!cadeteria.listaPedidos.Any(ped=>ped.Nro==nroPedido))
+                                if (!int.TryParse(cadNro, out nroPedido)||!cadeteria.ObtenerPedidos().Any(ped=>ped.Nro==nroPedido))
                                 {
                                     Console.WriteLine("ERROR! ingrese un numero valido");
                                 }
-                            } while (!int.TryParse(cadNro, out nroPedido)||!cadeteria.listaPedidos.Any(ped=>ped.Nro==nroPedido));
+                            } while (!int.TryParse(cadNro, out nroPedido)||!cadeteria.ObtenerPedidos().Any(ped=>ped.Nro==nroPedido));
 
                             Console.WriteLine("ingrese el id del cadete al que asignara el pedido:");
-                            foreach (Cadete cad in cadeteria.listaCadetes)
+                            foreach (Cadete cad in cadeteria.ObtenerCadetes())
                             {
                                 Console.WriteLine("-)id:"+cad.Id+" Nombre:"+cad.Nombre);
                             }
@@ -146,11 +146,11 @@ do
                             {
                                 Console.WriteLine("id:");
                                 cadId = Console.ReadLine();
-                                if (!int.TryParse(cadId,out id) || !cadeteria.listaCadetes.Any(cad=>cad.Id==id))
+                                if (!int.TryParse(cadId,out id) || !cadeteria.ObtenerCadetes().Any(cad=>cad.Id==id))
                                 {
                                     Console.WriteLine("ERROR! ingrese un id valido");
                                 }
-                            } while (!int.TryParse(cadId,out id)||!cadeteria.listaCadetes.Any(cad=>cad.Id==id));
+                            } while (!int.TryParse(cadId,out id)||!cadeteria.ObtenerCadetes().Any(cad=>cad.Id==id));
 
                             if (cadeteria.AsignarPedido(id,nroPedido))
                             {
@@ -171,7 +171,7 @@ do
             case 2:
                 Console.WriteLine("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/");
                 Console.WriteLine("***interfaz para cambiar el estado de un pedido***");
-                    foreach (Pedido ped in cadeteria.listaPedidos)
+                    foreach (Pedido ped in cadeteria.ObtenerPedidos())
                     {
                         Console.WriteLine("-)Pedido numero: "+ped.Nro+", en estado: "+ped.Estado);
                         ped.VerDireccionCliente();
@@ -183,11 +183,11 @@ do
                     {
                     Console.WriteLine("ingrese el numero del pedido que desea cambiar de estado:");
                     cadNro1 = Console.ReadLine();
-                    if (!int.TryParse(cadNro1, out nroPedido1)||!cadeteria.listaPedidos.Any(ped=>ped.Nro==nroPedido1))
+                    if (!int.TryParse(cadNro1, out nroPedido1)||!cadeteria.ObtenerPedidos().Any(ped=>ped.Nro==nroPedido1))
                     {
                         Console.WriteLine("ERROR!, ingrese un nro de pedido valido");
                     }
-                    } while (!int.TryParse(cadNro1, out nroPedido1)||!cadeteria.listaPedidos.Any(ped=>ped.Nro==nroPedido1));
+                    } while (!int.TryParse(cadNro1, out nroPedido1)||!cadeteria.ObtenerPedidos().Any(ped=>ped.Nro==nroPedido1));
                     
                     string cadInterfaz2="";
                     int interfaz2=-1;
@@ -212,11 +212,11 @@ do
                     Console.WriteLine("/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/");
                     Console.WriteLine("***interfaz para reasignar de cadete un pedido***");
                     Console.WriteLine("");
-                    foreach (Pedido ped in cadeteria.listaPedidos)
+                    foreach (Pedido ped in cadeteria.ObtenerPedidos())
                     {
                         if (ped.Estado != estadoPedido.completado &&ped.Estado!=estadoPedido.sinCadete)
                         {
-                           Console.WriteLine("-)Pedido numero: "+ped.Nro+ ", asignado al cadete con ID "+ ped.Cadete.Id);
+                           Console.WriteLine("-)Pedido numero: "+ped.Nro+ ", asignado al cadete con ID "+ ped.IdCadete());
                             ped.VerDireccionCliente(); 
                         }
                     }
@@ -227,12 +227,12 @@ do
                     {
                         Console.WriteLine("ingrese el numero del pedido que desea cambiar de cadete:");
                         cadNro2 = Console.ReadLine();
-                    } while (!int.TryParse(cadNro2, out nroPedido2)||!cadeteria.listaPedidos.Any(ped=>ped.Nro==nroPedido2));
+                    } while (!int.TryParse(cadNro2, out nroPedido2)||!cadeteria.ObtenerPedidos().Any(ped=>ped.Nro==nroPedido2));
 
                     int id2=0;
                     string cadId2="";
                     Console.WriteLine("ingrese el ID del cadete al que le reasignara el pedido:");
-                    foreach (Cadete cadete in cadeteria.listaCadetes)
+                    foreach (Cadete cadete in cadeteria.ObtenerCadetes())
                     {
                         Console.WriteLine(cadete.Nombre+" con ID: "+cadete.Id);
                     }
@@ -240,11 +240,11 @@ do
                     {
                         Console.WriteLine("id:");
                         cadId2 = Console.ReadLine();
-                        if (!int.TryParse(cadId2,out id2) || !cadeteria.listaCadetes.Any(cad=>cad.Id==id2))
+                        if (!int.TryParse(cadId2,out id2) || !cadeteria.ObtenerCadetes().Any(cad=>cad.Id==id2))
                         {
                             Console.WriteLine("ERROR! ingrese un id valido");
                         }
-                    } while (!int.TryParse(cadId2,out id2)|| !cadeteria.listaCadetes.Any(cad=>cad.Id==id2));
+                    } while (!int.TryParse(cadId2,out id2)|| !cadeteria.ObtenerCadetes().Any(cad=>cad.Id==id2));
                     if(cadeteria.ReasignarPedido(id2,nroPedido2))
                     {
                         Console.WriteLine("pedido reasignado con exito!");
@@ -263,9 +263,9 @@ do
 Console.WriteLine("/*/*/*/*/ INFORME DE LA JORNADA /*/*/*/*/");
 int totalEnvios=0;
 int totalApagar=0;
-foreach (Cadete cadete in cadeteria.listaCadetes)
+foreach (Cadete cadete in cadeteria.ObtenerCadetes())
 {
-    Console.Write("---cadete "+cadete.Nombre+" con ID: "+cadete.Id);
+    Console.Write("---cadete "+cadete.Nombre+ " con ID: "+ cadete.Id);
     Console.WriteLine("cantidad de pedidos realizados: "+cadeteria.PedidosRealizadosJornal(cadete.Id));
     Console.WriteLine("total a pagarle: "+cadeteria.JornalAcobrar(cadete.Id));
     totalEnvios += cadeteria.PedidosRealizadosJornal(cadete.Id);
